@@ -1,0 +1,21 @@
+{
+    "name": "pnkjwebspero/changepage",
+    "description": "Change Page - Change home page",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "karan",
+            "email": "karan@pnkjwebspero.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pnkjwebspero\\Changepage\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0"
+    }
+}

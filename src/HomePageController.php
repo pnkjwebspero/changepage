@@ -11,4 +11,9 @@ class HomePageController extends Controller
     {
         return view('changepage::index');
     }
+
+    public function addFile()
+    {
+        return new \Changepage\Src\Changepage();
+    }
 }

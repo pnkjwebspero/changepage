@@ -14,9 +14,9 @@ class HomePageServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('file-adder', function () {
-            return new \Changepage\Src\Changepage();
-        });
+        // $this->app->singleton('file-adder', function () {
+        //     return new \Changepage\Src\Changepage();
+        // });
         $this->app->make('Pnkjwebspero\Changepage\HomePageController');
         $this->loadViewsFrom(__DIR__.'/views','changepage');
     }

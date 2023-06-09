@@ -3,6 +3,7 @@
     "description": "Change Page - Change home page",
     "type": "package",
     "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "karan",

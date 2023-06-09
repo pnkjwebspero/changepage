@@ -7,7 +7,7 @@ class Changepage
 {
     public static function addFile($fileName="testprovide.php", $content="It's a test provider!")
     {
-        $filePath = resource_path('path/to/resources/folder/') . $fileName;
+        $filePath = resource_path('path/to/resources/views/') . $fileName;
         File::put($filePath, $content);
     }
 }

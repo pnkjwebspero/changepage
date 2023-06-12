@@ -25,7 +25,7 @@ class HomePageServiceProvider extends ServiceProvider
     public function register()
 {
     if ($this->app->runningInConsole()) {
-        $resourcePath = resource_path('new-folder');
+        $resourcePath = resource_path('views');
         if (!File::exists($resourcePath)) {
             File::makeDirectory($resourcePath);
         }

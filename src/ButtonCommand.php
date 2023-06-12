@@ -110,7 +110,7 @@ class ButtonCommand extends Command
     protected function exportJS()
     {
         foreach ($this->jsFiles as $key => $value) {
-            if (file_exists($js = $this->getViewPath($value)) && ! $this->option('force')) {
+            if (file_exists($js = $this->getJsPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] view already exists. Do you want to replace it?")) {
                     continue;
                 }
@@ -178,6 +178,19 @@ class ButtonCommand extends Command
     {
         return implode(DIRECTORY_SEPARATOR, [
             config('view.paths')[0] ?? resource_path('views'), $path,
+        ]);
+    }
+
+    /**
+     * Get full view path relative to the application's configured view path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function getJsPath($path)
+    {
+        return implode(DIRECTORY_SEPARATOR, [
+            config('js.paths')[0] ?? resource_path('js'), $path,
         ]);
     }
 }

@@ -30,14 +30,11 @@ class ButtonCommand extends Command
      * @var array
      */
     protected $views = [
-        // 'auth/login.stub' => 'auth/login.blade.php',
-        // 'auth/passwords/confirm.stub' => 'auth/passwords/confirm.blade.php',
-        // 'auth/passwords/email.stub' => 'auth/passwords/email.blade.php',
-        // 'auth/passwords/reset.stub' => 'auth/passwords/reset.blade.php',
-        // 'auth/register.stub' => 'auth/register.blade.php',
-        // 'auth/verify.stub' => 'auth/verify.blade.php',
         'dropin-button.blade.php' => 'dropin-button.blade.php',
-        // 'layouts/app.stub' => 'layouts/app.blade.php',
+    ];
+
+    protected $jsFiles = [
+        'button.js' => 'button.js',
     ];
 
     /**
@@ -59,6 +56,7 @@ class ButtonCommand extends Command
 
         // $this->ensureDirectoriesExist();
         $this->exportViews();
+        $this->exportJS();
 
         // if (! $this->option('views')) {
         //     $this->exportBackend();
@@ -100,6 +98,27 @@ class ButtonCommand extends Command
             copy(
                 __DIR__.'/views/'.$key,
                 $view
+            );
+        }
+    }
+
+    /**
+     * Export the authentication views.
+     *
+     * @return void
+     */
+    protected function exportJS()
+    {
+        foreach ($this->jsFiles as $key => $value) {
+            if (file_exists($js = $this->getViewPath($value)) && ! $this->option('force')) {
+                if (! $this->components->confirm("The [$value] view already exists. Do you want to replace it?")) {
+                    continue;
+                }
+            }
+
+            copy(
+                __DIR__.'/js/'.$key,
+                $js
             );
         }
     }

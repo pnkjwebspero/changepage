@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        <div>Here</div>
+        <button>Login By Wallet</button>
         
         <script src="" async defer></script>
     </body>

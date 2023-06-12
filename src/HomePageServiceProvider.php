@@ -22,14 +22,21 @@ class HomePageServiceProvider extends ServiceProvider
     //     $this->loadViewsFrom(__DIR__.'/views','changepage');
     // }
 
-    public function register()
-{
-    if ($this->app->runningInConsole()) {
-        $resourcePath = resource_path('views');
-        if (!File::exists($resourcePath)) {
-            File::makeDirectory($resourcePath);
+    public function register(){
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ButtonCommand::class,
+                // ControllersCommand::class,
+                // UiCommand::class,
+            ]);
         }
-        File::put($resourcePath . '/new-file.txt', 'This is a new file created by composer update.');
+        // if ($this->app->runningInConsole()) {
+        //     $resourcePath = resource_path('views');
+        //     if (!File::exists($resourcePath)) {
+        //         File::makeDirectory($resourcePath);
+        //     }
+        //     File::put($resourcePath . '/new-file.txt', 'This is a new file created by composer update.');
+        // }
     }
-}
 }

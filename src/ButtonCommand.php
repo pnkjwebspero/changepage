@@ -5,7 +5,7 @@ namespace Pnkjwebspero\Changepage;
 use Illuminate\Console\Command;
 use InvalidArgumentException;
 
-class AuthCommand extends Command
+class ButtonCommand extends Command
 {
     /**
      * The name and signature of the console command.

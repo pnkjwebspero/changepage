@@ -90,7 +90,6 @@ class ButtonCommand extends Command
      */
     protected function exportViews()
     {
-        dd($views);
         foreach ($this->views as $key => $value) {
             if (file_exists($view = $this->getViewPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] view already exists. Do you want to replace it?")) {

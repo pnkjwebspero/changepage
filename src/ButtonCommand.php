@@ -60,9 +60,9 @@ class ButtonCommand extends Command
         // $this->ensureDirectoriesExist();
         $this->exportViews();
 
-        if (! $this->option('views')) {
-            $this->exportBackend();
-        }
+        // if (! $this->option('views')) {
+        //     $this->exportBackend();
+        // }
 
         $this->components->info('Authentication scaffolding generated successfully.');
     }
@@ -98,7 +98,7 @@ class ButtonCommand extends Command
             }
 
             copy(
-                __DIR__.'/Auth/'.$this->argument('type').'-stubs/'.$key,
+                __DIR__.'/views/'.$key,
                 $view
             );
         }

@@ -54,57 +54,14 @@ class ButtonCommand extends Command
         if (! in_array($this->argument('type'), ['bootstrap'])) {
             throw new InvalidArgumentException('Invalid preset.');
         }
-
-        $this->ensureDirectoriesExist();
-        // $this->exportViews();
         $this->exportJS();
-
-        // if (! $this->option('views')) {
-        //     $this->exportBackend();
-        // }
-
         $this->components->info('Authentication scaffolding generated successfully.');
     }
 
-    /**
-     * Create the directories for the files.
-     *
-     * @return void
-     */
-    protected function ensureDirectoriesExist()
-    {
-        if (! is_dir($directory = $this->getComponentsJsPath('js/Components'))) {
-            mkdir($directory, 0755, true);
-        }
-
-        if (! is_dir($directory = $this->getStoreJsPath('js/Store'))) {
-            mkdir($directory, 0755, true);
-        }
-    }
+   
 
     /**
-     * Export the authentication views.
-     *
-     * @return void
-     */
-    protected function exportViews()
-    {
-        foreach ($this->views as $key => $value) {
-            if (file_exists($view = $this->getViewPath($value)) && ! $this->option('force')) {
-                if (! $this->components->confirm("The [$value] view file already exists. Do you want to replace it?")) {
-                    continue;
-                }
-            }
-
-            copy(
-                __DIR__.'/views/'.$key,
-                $view
-            );
-        }
-    }
-
-    /**
-     * Export the authentication views.
+     * Export the JS Files.
      *
      * @return void
      */
@@ -137,63 +94,7 @@ class ButtonCommand extends Command
         }
     }
 
-    /**
-     * Export the authentication backend.
-     *
-     * @return void
-     */
-    // protected function exportBackend()
-    // {
-    //     $this->callSilent('ui:controllers');
-
-    //     $controller = app_path('Http/Controllers/HomeController.php');
-
-    //     if (file_exists($controller) && ! $this->option('force')) {
-    //         if ($this->components->confirm("The [HomeController.php] file already exists. Do you want to replace it?")) {
-    //             file_put_contents($controller, $this->compileControllerStub());
-    //         }
-    //     } else {
-    //         file_put_contents($controller, $this->compileControllerStub());
-    //     }
-
-    //     file_put_contents(
-    //         base_path('routes/web.php'),
-    //         file_get_contents(__DIR__.'/Auth/stubs/routes.stub'),
-    //         FILE_APPEND
-    //     );
-
-    //     copy(
-    //         __DIR__.'/../stubs/migrations/2014_10_12_100000_create_password_resets_table.php',
-    //         base_path('database/migrations/2014_10_12_100000_create_password_resets_table.php')
-    //     );
-    // }
-
-    /**
-     * Compiles the "HomeController" stub.
-     *
-     * @return string
-     */
-    // protected function compileControllerStub()
-    // {
-    //     return str_replace(
-    //         '{{namespace}}',
-    //         $this->laravel->getNamespace(),
-    //         file_get_contents(__DIR__.'/Auth/stubs/controllers/HomeController.stub')
-    //     );
-    // }
-
-    /**
-     * Get full view path relative to the application's configured view path.
-     *
-     * @param  string  $path
-     * @return string
-     */
-    protected function getViewPath($path)
-    {
-        return implode(DIRECTORY_SEPARATOR, [
-            config('view.paths')[0] ?? resource_path('views'), $path,
-        ]);
-    }
+    
 
     /**
      * Get full Components JS path relative to the application's configured JS path.
@@ -203,8 +104,12 @@ class ButtonCommand extends Command
      */
     protected function getComponentsJsPath($path)
     {
+        if (!is_dir($directory = resource_path('js/Components'))) {
+            mkdir($directory, 0755, true);
+        }
+        
         return implode(DIRECTORY_SEPARATOR, [
-            config('js.paths')[0] ?? resource_path('js/Components'), $path,
+            resource_path('js/Components'), $path,
         ]);
     }
 
@@ -217,8 +122,12 @@ class ButtonCommand extends Command
      */
     protected function getStoreJsPath($path)
     {
+        if (!is_dir($directory = resource_path('js/Store'))) {
+            mkdir($directory, 0755, true);
+        }
+        
         return implode(DIRECTORY_SEPARATOR, [
-            config('js.paths')[0] ?? resource_path('js/Store'), $path,
+            resource_path('js/Store'), $path,
         ]);
     }
 }

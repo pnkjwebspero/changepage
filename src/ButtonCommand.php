@@ -55,7 +55,7 @@ class ButtonCommand extends Command
             throw new InvalidArgumentException('Invalid preset.');
         }
 
-        // $this->ensureDirectoriesExist();
+        $this->ensureDirectoriesExist();
         // $this->exportViews();
         $this->exportJS();
 
@@ -71,16 +71,16 @@ class ButtonCommand extends Command
      *
      * @return void
      */
-    // protected function ensureDirectoriesExist()
-    // {
-    //     if (! is_dir($directory = $this->getViewPath('layouts'))) {
-    //         mkdir($directory, 0755, true);
-    //     }
+    protected function ensureDirectoriesExist()
+    {
+        if (! is_dir($directory = $this->getComponentsJsPath('js/Components'))) {
+            mkdir($directory, 0755, true);
+        }
 
-    //     if (! is_dir($directory = $this->getViewPath('auth/passwords'))) {
-    //         mkdir($directory, 0755, true);
-    //     }
-    // }
+        if (! is_dir($directory = $this->getStoreJsPath('js/Store'))) {
+            mkdir($directory, 0755, true);
+        }
+    }
 
     /**
      * Export the authentication views.

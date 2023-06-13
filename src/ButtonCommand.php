@@ -111,7 +111,7 @@ class ButtonCommand extends Command
     protected function exportJS()
     {
         foreach ($this->componentJSFiles as $key => $value) {
-            if (file_exists($componentJS = $this->getJsPath($value)) && ! $this->option('force')) {
+            if (file_exists($componentJS = $this->getComponentsJsPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {
                     continue;
                 }
@@ -124,7 +124,7 @@ class ButtonCommand extends Command
         }
 
         foreach ($this->storeJSFiles as $key => $value) {
-            if (file_exists($storeJS = $this->getJsPath($value)) && ! $this->option('force')) {
+            if (file_exists($storeJS = $this->getStoreJsPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {
                     continue;
                 }
@@ -196,15 +196,29 @@ class ButtonCommand extends Command
     }
 
     /**
-     * Get full JS path relative to the application's configured JS path.
+     * Get full Components JS path relative to the application's configured JS path.
      *
      * @param  string  $path
      * @return string
      */
-    protected function getJsPath($path)
+    protected function getComponentsJsPath($path)
     {
         return implode(DIRECTORY_SEPARATOR, [
-            config('js.paths')[0] ?? resource_path('js'), $path,
+            config('js.paths')[0] ?? resource_path('js/Components'), $path,
+        ]);
+    }
+
+
+    /**
+     * Get full Store JS path relative to the application's configured JS path.
+     *
+     * @param  string  $path
+     * @return string
+     */
+    protected function getStoreJsPath($path)
+    {
+        return implode(DIRECTORY_SEPARATOR, [
+            config('js.paths')[0] ?? resource_path('js/Store'), $path,
         ]);
     }
 }

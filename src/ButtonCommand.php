@@ -12,7 +12,7 @@ class ButtonCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'Changepage:views
+    protected $signature = 'Changepage:js
                     { type=bootstrap : The preset type (bootstrap) }
                     {--views : Only scaffold the authentication views}
                     {--force : Overwrite existing views by default}';
@@ -25,16 +25,17 @@ class ButtonCommand extends Command
     protected $description = 'Scaffold basic login and registration views and routes';
 
     /**
-     * The views that need to be exported.
+     * The JS Files that need to be exported.
      *
      * @var array
      */
-    protected $views = [
-        'dropin-button.blade.php' => 'dropin-button.blade.php',
+
+    protected $componentJSFiles = [
+        'button.js' => 'button.jsx',
     ];
 
-    protected $jsFiles = [
-        'button.js' => 'button.js',
+    protected $storeJSFiles = [
+        'auth.context.js' => 'auth.context.jsx',
     ];
 
     /**
@@ -55,7 +56,7 @@ class ButtonCommand extends Command
         }
 
         // $this->ensureDirectoriesExist();
-        $this->exportViews();
+        // $this->exportViews();
         $this->exportJS();
 
         // if (! $this->option('views')) {
@@ -70,16 +71,16 @@ class ButtonCommand extends Command
      *
      * @return void
      */
-    protected function ensureDirectoriesExist()
-    {
-        if (! is_dir($directory = $this->getViewPath('layouts'))) {
-            mkdir($directory, 0755, true);
-        }
+    // protected function ensureDirectoriesExist()
+    // {
+    //     if (! is_dir($directory = $this->getViewPath('layouts'))) {
+    //         mkdir($directory, 0755, true);
+    //     }
 
-        if (! is_dir($directory = $this->getViewPath('auth/passwords'))) {
-            mkdir($directory, 0755, true);
-        }
-    }
+    //     if (! is_dir($directory = $this->getViewPath('auth/passwords'))) {
+    //         mkdir($directory, 0755, true);
+    //     }
+    // }
 
     /**
      * Export the authentication views.
@@ -90,7 +91,7 @@ class ButtonCommand extends Command
     {
         foreach ($this->views as $key => $value) {
             if (file_exists($view = $this->getViewPath($value)) && ! $this->option('force')) {
-                if (! $this->components->confirm("The [$value] view already exists. Do you want to replace it?")) {
+                if (! $this->components->confirm("The [$value] view file already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
@@ -109,16 +110,29 @@ class ButtonCommand extends Command
      */
     protected function exportJS()
     {
-        foreach ($this->jsFiles as $key => $value) {
-            if (file_exists($js = $this->getJsPath($value)) && ! $this->option('force')) {
-                if (! $this->components->confirm("The [$value] view already exists. Do you want to replace it?")) {
+        foreach ($this->componentJSFiles as $key => $value) {
+            if (file_exists($componentJS = $this->getJsPath($value)) && ! $this->option('force')) {
+                if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {
                     continue;
                 }
             }
 
             copy(
-                __DIR__.'/js/'.$key,
-                $js
+                __DIR__.'/js/Components/'.$key,
+                $componentJS
+            );
+        }
+
+        foreach ($this->storeJSFiles as $key => $value) {
+            if (file_exists($storeJS = $this->getJsPath($value)) && ! $this->option('force')) {
+                if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {
+                    continue;
+                }
+            }
+
+            copy(
+                __DIR__.'/js/Store/'.$key,
+                $storeJS
             );
         }
     }
@@ -128,45 +142,45 @@ class ButtonCommand extends Command
      *
      * @return void
      */
-    protected function exportBackend()
-    {
-        $this->callSilent('ui:controllers');
+    // protected function exportBackend()
+    // {
+    //     $this->callSilent('ui:controllers');
 
-        $controller = app_path('Http/Controllers/HomeController.php');
+    //     $controller = app_path('Http/Controllers/HomeController.php');
 
-        if (file_exists($controller) && ! $this->option('force')) {
-            if ($this->components->confirm("The [HomeController.php] file already exists. Do you want to replace it?")) {
-                file_put_contents($controller, $this->compileControllerStub());
-            }
-        } else {
-            file_put_contents($controller, $this->compileControllerStub());
-        }
+    //     if (file_exists($controller) && ! $this->option('force')) {
+    //         if ($this->components->confirm("The [HomeController.php] file already exists. Do you want to replace it?")) {
+    //             file_put_contents($controller, $this->compileControllerStub());
+    //         }
+    //     } else {
+    //         file_put_contents($controller, $this->compileControllerStub());
+    //     }
 
-        file_put_contents(
-            base_path('routes/web.php'),
-            file_get_contents(__DIR__.'/Auth/stubs/routes.stub'),
-            FILE_APPEND
-        );
+    //     file_put_contents(
+    //         base_path('routes/web.php'),
+    //         file_get_contents(__DIR__.'/Auth/stubs/routes.stub'),
+    //         FILE_APPEND
+    //     );
 
-        copy(
-            __DIR__.'/../stubs/migrations/2014_10_12_100000_create_password_resets_table.php',
-            base_path('database/migrations/2014_10_12_100000_create_password_resets_table.php')
-        );
-    }
+    //     copy(
+    //         __DIR__.'/../stubs/migrations/2014_10_12_100000_create_password_resets_table.php',
+    //         base_path('database/migrations/2014_10_12_100000_create_password_resets_table.php')
+    //     );
+    // }
 
     /**
      * Compiles the "HomeController" stub.
      *
      * @return string
      */
-    protected function compileControllerStub()
-    {
-        return str_replace(
-            '{{namespace}}',
-            $this->laravel->getNamespace(),
-            file_get_contents(__DIR__.'/Auth/stubs/controllers/HomeController.stub')
-        );
-    }
+    // protected function compileControllerStub()
+    // {
+    //     return str_replace(
+    //         '{{namespace}}',
+    //         $this->laravel->getNamespace(),
+    //         file_get_contents(__DIR__.'/Auth/stubs/controllers/HomeController.stub')
+    //     );
+    // }
 
     /**
      * Get full view path relative to the application's configured view path.
@@ -182,7 +196,7 @@ class ButtonCommand extends Command
     }
 
     /**
-     * Get full view path relative to the application's configured view path.
+     * Get full JS path relative to the application's configured JS path.
      *
      * @param  string  $path
      * @return string

@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import ProtonWebSDK from "@proton/web-sdk";
-import config from "../Config";
-import Logo from "../../images/drone-with-box.svg";
+import Logo from "../../images/wallet-logo.svg";
 
 /*****************Default auth context value and function */
 const AuthContext = createContext({
@@ -43,15 +42,15 @@ export function AuthContextProvider({ children }) {
         try {
             const { link, session } = await ProtonWebSDK({
                 linkOptions: {
-                    chainId: config.CHAIN_ID,
-                    endpoints: config.CHAIN_NETWORK_ENDPOINTS.split(","),
+                    chainId: import.meta.env.VITE_MAINNET_CHAIN_ID,
+                    endpoints: import.meta.env.VITE_MAINNET_CHAIN_NETWORK_ENDPOINTS.split(","),
                 },
                 transportOptions: {
-                    requestAccount: config.ACCOUNT,
+                    requestAccount: import.meta.env.VITE_MAINNET_ACCOUNT,
                     backButton: true,
                 },
                 selectorOptions: {
-                    appName: config.APP_NAME,
+                    appName: import.meta.env.VITE_APP_NAME,
                     appLogo: Logo,
                     customStyleOptions,
                 },
@@ -70,15 +69,15 @@ export function AuthContextProvider({ children }) {
         try {
             const { link, session } = await ProtonWebSDK({
                 linkOptions: {
-                    chainId: config.CHAIN_ID,
-                    endpoints: config.CHAIN_NETWORK_ENDPOINTS.split(","),
+                    chainId: import.meta.env.VITE_MAINNET_CHAIN_ID,
+                    endpoints: import.meta.env.VITE_MAINNET_CHAIN_NETWORK_ENDPOINTS.split(","),
                     restoreSession: true,
                 },
                 transportOptions: {
-                    requestAccount: config.ACCOUNT,
+                    requestAccount: import.meta.env.VITE_MAINNET_ACCOUNT,
                 },
                 selectorOptions: {
-                    appName: config.APP_NAME,
+                    appName: import.meta.env.VITE_APP_NAME,
                     appLogo: Logo,
                     showSelector: false,
                 },
@@ -94,7 +93,7 @@ export function AuthContextProvider({ children }) {
 
     /****************Logout webauth wallet */
     const logout = async () => {
-        await link.removeSession(config.ACCOUNT, auth);
+        await link.removeSession(import.meta.env.VITE_MAINNET_ACCOUNT, auth);
         setAuth(null);
         setLink(null);
         setSession(null);

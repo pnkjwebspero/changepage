@@ -67,6 +67,10 @@ class ButtonCommand extends Command
      */
     protected function exportJS()
     {
+        copy(
+            __DIR__.'/js/app.js',
+            '/js/'
+        );
         foreach ($this->componentJSFiles as $key => $value) {
             if (file_exists($componentJS = $this->getComponentsJsPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {

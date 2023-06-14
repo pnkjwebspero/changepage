@@ -17,6 +17,9 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": "^8.0"
+        "php": "^8.0",
+        "@proton/web-sdk": "^4.2.15",
+        "react-dom": "^18.2.0"
+
     }
 }

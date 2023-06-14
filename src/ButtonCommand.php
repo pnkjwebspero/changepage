@@ -62,6 +62,20 @@ class ButtonCommand extends Command
         $this->components->info('Authentication scaffolding generated successfully.');
     }
 
+     /**
+     * Install the "react" preset.
+     *
+     * @return void
+     */
+    protected function react()
+    {
+        Presets\Bootstrap::install();
+        Presets\React::install();
+
+        $this->components->info('React scaffolding installed successfully.');
+        $this->components->warn('Please run [npm install && npm run dev] to compile your fresh scaffolding.');
+    }
+
    
 
     /**

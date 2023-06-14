@@ -1,6 +1,6 @@
 <?php
 
-namespace Laravel\Ui\Presets;
+namespace Pnkjwebspero\Changepage;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;

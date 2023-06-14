@@ -98,7 +98,7 @@ class ButtonCommand extends Command
         }
 
         foreach ($this->rootJSFiles as $key => $value) {
-            if (file_exists($rootJS = $this->getStoreJsPath($value)) && ! $this->option('force')) {
+            if (file_exists($rootJS = $this->getRootJsPath($value)) && ! $this->option('force')) {
                 if (! $this->components->confirm("The [$value] js file already exists. Do you want to replace it?")) {
                     continue;
                 }

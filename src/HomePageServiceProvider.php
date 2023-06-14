@@ -10,33 +10,44 @@ class HomePageServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-    //    include __DIR__.'/routes.php';
+     // Add the npm dependency to package.json when the package is installed
+     $this->addNpmDependency();
     }
 
-    // public function register()
-    // {
-    //     // $this->app->singleton('file-adder', function () {
-    //     //     return new \Changepage\Src\Changepage();
-    //     // });
-    //     $this->app->make('Pnkjwebspero\Changepage\HomePageController');
-    //     $this->loadViewsFrom(__DIR__.'/views','changepage');
-    // }
+    
 
     public function register(){
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ButtonCommand::class,
-                // ControllersCommand::class,
-                // UiCommand::class,
             ]);
         }
-        // if ($this->app->runningInConsole()) {
-        //     $resourcePath = resource_path('views');
-        //     if (!File::exists($resourcePath)) {
-        //         File::makeDirectory($resourcePath);
-        //     }
-        //     File::put($resourcePath . '/new-file.txt', 'This is a new file created by composer update.');
-        // }
+    }
+
+    protected function addNpmDependency()
+    {
+        $packagePath = base_path('package.json');
+        $packageContents = json_decode(file_get_contents($packagePath), true);
+
+        // Check if dependencies key exists, otherwise create it
+        if (!isset($packageContents['dependencies'])) {
+            $packageContents['dependencies'] = [];
+        }
+
+        // Check if the dependency already exists, otherwise add it
+        if (!isset($packageContents['dependencies']['react-dom'])) {
+            $packageContents['dependencies']['react-dom'] = '^18.2.0';
+
+            // Save the modified package.json
+            file_put_contents($packagePath, json_encode($packageContents, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        }
+
+        if (!isset($packageContents['dependencies']['@proton/web-sdk'])) {
+            $packageContents['dependencies']['@proton/web-sdk'] = '^4.2.15';
+
+            // Save the modified package.json
+            file_put_contents($packagePath, json_encode($packageContents, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        }
     }
 }

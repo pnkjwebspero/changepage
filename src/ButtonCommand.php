@@ -69,7 +69,7 @@ class ButtonCommand extends Command
     {
         copy(
             __DIR__.'/js/app.js',
-            '/js/'
+            'app.jsx'
         );
         foreach ($this->componentJSFiles as $key => $value) {
             if (file_exists($componentJS = $this->getComponentsJsPath($value)) && ! $this->option('force')) {

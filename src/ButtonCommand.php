@@ -12,17 +12,14 @@ class ButtonCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'Changepage:js
-                    { type=bootstrap : The preset type (bootstrap) }
-                    {--views : Only scaffold the authentication views}
-                    {--force : Overwrite existing views by default}';
+    protected $signature = 'Changepage:js';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Scaffold basic login and registration views and routes';
+    protected $description = 'Wallet login & logout!';
 
     /**
      * The JS Files that need to be exported.
@@ -59,24 +56,9 @@ class ButtonCommand extends Command
             throw new InvalidArgumentException('Invalid preset.');
         }
         $this->exportJS();
-        $this->components->info('Authentication scaffolding generated successfully.');
+        $this->components->info('Wallet Login generated successfully.');
+        $this->components->info('Run npm install && npm run dev.');
     }
-
-     /**
-     * Install the "react" preset.
-     *
-     * @return void
-     */
-    protected function react()
-    {
-        Presets\Bootstrap::install();
-        Presets\React::install();
-
-        $this->components->info('React scaffolding installed successfully.');
-        $this->components->warn('Please run [npm install && npm run dev] to compile your fresh scaffolding.');
-    }
-
-   
 
     /**
      * Export the JS Files.

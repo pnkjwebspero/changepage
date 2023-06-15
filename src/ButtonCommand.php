@@ -48,13 +48,6 @@ class ButtonCommand extends Command
      */
     public function handle()
     {
-        if (static::hasMacro($this->argument('type'))) {
-            return call_user_func(static::$macros[$this->argument('type')], $this);
-        }
-
-        if (! in_array($this->argument('type'), ['bootstrap'])) {
-            throw new InvalidArgumentException('Invalid preset.');
-        }
         $this->exportJS();
         $this->components->info('Wallet Login generated successfully.');
         $this->components->info('Run npm install && npm run dev.');

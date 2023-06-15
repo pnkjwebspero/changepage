@@ -1,9 +1,8 @@
 import ReactDOM from "react-dom/client"
-import Button from "./components/button";
+import Button from "./Components/button";
 import { AuthContextProvider } from "./Store/auth.context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    // ReactDOM.createRoot(document.getElementsByClassName('proton')).render(
     <div  className={'proton'}>
         <AuthContextProvider>
             <Button/>

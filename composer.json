@@ -15,6 +15,13 @@
             "Pnkjwebspero\\Changepage\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pnkjwebspero\\Changepage\\HomePageServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "require": {
         "php": "^8.0"

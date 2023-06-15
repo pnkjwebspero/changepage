@@ -36,6 +36,14 @@ class HomePageServiceProvider extends ServiceProvider
         }
 
         // Check if the dependency already exists, otherwise add it
+        if (!isset($packageContents['dependencies']['@vitejs/plugin-react'])) {
+            $packageContents['dependencies']['@vitejs/plugin-react'] = '^4.0.0';
+
+            // Save the modified package.json
+            file_put_contents($packagePath, json_encode($packageContents, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        }
+
+        // Check if the dependency already exists, otherwise add it
         if (!isset($packageContents['dependencies']['react-dom'])) {
             $packageContents['dependencies']['react-dom'] = '^18.2.0';
 

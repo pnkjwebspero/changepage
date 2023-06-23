@@ -1,3 +1,5 @@
+To highlight some text in the content you provided, you can use a markdown-like syntax by wrapping the text with double asterisks (`**`). Here's the modified content with highlighted text:
+
 # Proton Auth Context Package
 
 This is a Laravel package that provides authentication context functionality using Proton. It allows you to easily integrate Proton login functionality into your Laravel application.
@@ -58,7 +60,7 @@ This is a Laravel package that provides authentication context functionality usi
    ReactDOM.createRoot(document.getElementById("root")).render(
      <>
        <AuthContextProvider>
-         <ProtonLoginButton />
+         **<ProtonLoginButton />**
        </AuthContextProvider>
      </>
    );
@@ -69,8 +71,8 @@ This is a Laravel package that provides authentication context functionality usi
 4. Add the following code to your header before closing the `</head>` tag:
 
    ```html
-   @viteReactRefresh
-   @vite('resources/js/app.jsx')
+   **@viteReactRefresh**
+   **@vite('resources/js/app.jsx')**
    ```
 
    Note: Make sure the `@vite('resources/js/app.jsx')` file matches the root JavaScript file you updated.
@@ -78,11 +80,9 @@ This is a Laravel package that provides authentication context functionality usi
 5. Place the following code where you want to add the `ProtonLoginButton` component:
 
    ```html
-   <div id="root"></div>
+   **<div id="root"></div>**
    ```
 
    You can change the `id` attribute according to your setup in the root JavaScript file.
 
-Feel free to customize the package according to your specific needs and requirements.
-
-**Note:** This is a basic guide to get you started with the Proton Auth Context Package. For more advanced usage and detailed instructions, please refer to the package documentation and customize it according to your application's specific requirements.
+The highlighted text is denoted by the double asterisks (`**`).
